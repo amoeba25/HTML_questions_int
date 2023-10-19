@@ -79,7 +79,17 @@ There are a number of ways to optimize faster loading of assets <br>
 Webstorage can help to store basic static data in the local storage of the web browser so that we do not need to fetch the data everytime, from the servers. There is a size limit, based on different browsers. There are 2 types of web storage that can be used to store data locally in HTML5: <br>
 - Local storage : This will help to store data that can be retained even if user reopens the browser. 
 - Session storage : Used only for one session, so as soon as the browser closes, the data will get deleted
-- Local storage : 
+- Cookies : This storage mechanism can be manually set. These are a good option for small amount of data that need to be sent to the server, with each request while the local storage is better suited for larger amount of data that need to be persisted between visits to the website. 
+<br>
+
+| property |cookie|local storage|sessionStorage
+---|-------|-------------|----------------
+initiator| client/server. Server can use Set-Cookie header | Client | Client
+expiry | Manually set | Forever | On tab close 
+Persistent across browser sessions | Depending on expiration set | Yes | No
+Sent to server with every HTTP request | Yes, via cookie header | No | No
+Capacity (per domain) | 4kb | 5MB | 5MB
+Accessibiiity | Any window | Any window | Same tab
 
 
 ## 8. What is SEO? 
@@ -96,3 +106,15 @@ Putting ```<link>``` in the ```<head>``` is basically the proper specification t
 This is called **progressive rendering**. It is a metric on which sites are measured, based on their performance scores. Putting the stylesheets are the bottom of the document inhibits this progressive rendering. <br> <br> 
 
 The ```<script>``` tag is used just before the body as the script tag block any HTML parsing while they are being downloaded and executed. This can slow down the display of the webpage. Placing them at the bottom will allow the HTML to be parsed and displayed to the user first. 
+
+## 10. What is progressive rendering? 
+
+Progressive rendering is the technique that is used to improve the performance of a webpage (to improve the perceived load time) and to render content as quickly as possible. Some techniques involved to achieve this: <br>
+- Lazy loading of images : images on the page aren't loaded, all at once. JS will is used to load an image when the user scrolls onto that part of the page. <br>
+- Priortizing visible content only : including minimum CSS/content or scripts necessary for the page. We can use deferred scripts for this <br>
+- Async HTML fragments : involves flushing parts of HTML to the browsers as the page is constructed on the backend
+
+## 11. Why would one use a ```<srcset>``` attribute in the image tag? Explain the process that the browser uses the evaluate that content. 
+
+We use ```<srcset>``` when we want to serve different images to the users, depending on the device display width (basically serving hiring quality images to retina display users). This means serving low res images to lower-end devices to increase the performance and decrease data wastage. <br> 
+For example: ```<img srcset="small.jpg 500w, medium.jpg 1000w, large.jpg 2000w" src="..." alt="">``` tells the browser to display the small, medium or large .jpg graphic depending on the client's resolution.
